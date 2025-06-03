@@ -27,7 +27,6 @@ distro==1.9.0
 effdet==0.4.1
 emoji==2.14.1
 et-xmlfile==2.0.0
-faiss-cpu==1.11.0
 faiss-gpu-cu12==1.11.0
 fastapi==0.115.12
 filelock==3.18.0
