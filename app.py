@@ -11,6 +11,7 @@ import base64
 # This is a Streamlit app for a Cyber Risk Audit Bot that allows users to upload policies and evidence files,
 # train a knowledge base, assess evidence against the knowledge base, and generate an audit workbook.
 
+
 VECTORSTORE_PATH = "saved_kb_vectorstore"
 
 st.set_page_config(page_title="Control Risk Audit Bot", layout="wide")
@@ -34,7 +35,7 @@ st.markdown("Welcome to your Control risk assistant. Start by uploading your pol
 # --- Load saved bot at app start ---
 if os.path.exists(VECTORSTORE_PATH) and not st.session_state.get('kb_ready', False):
     from langchain_community.vectorstores import FAISS
-    from langchain.embeddings import OllamaEmbeddings
+    from langchain_community.embeddings import OllamaEmbeddings
     st.session_state['kb_vectorstore'] = FAISS.load_local(
         VECTORSTORE_PATH,
         OllamaEmbeddings(),
@@ -108,7 +109,7 @@ with st.expander("1️⃣ Upload Knowledge Base Documents", expanded=True):
     if train_btn:
         with st.spinner("Processing and indexing knowledge base..."):
             kb_docs = save_and_load_files(policy_files)
-            kb_vectorstore = build_knowledge_base(kb_docs)
+            kb_vectorstore = build_knowledge_base(kb_docs)            
             st.session_state['kb_vectorstore'] = kb_vectorstore
             st.session_state['kb_ready'] = True
             st.session_state['bot_trained_success'] = True  # <-- enable Save on next rerun!

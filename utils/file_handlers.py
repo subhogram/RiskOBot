@@ -1,9 +1,7 @@
 import os
 import tempfile
-from langchain_community.document_loaders import (
-    UnstructuredPDFLoader,
-    UnstructuredFileLoader,
-)
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_unstructured import UnstructuredLoader
 
 def save_temp_file(file):
     suffix = file.name.split(".")[-1]
@@ -19,9 +17,9 @@ def save_and_load_files(files):
             temp_path = save_temp_file(file)
             ext = os.path.splitext(temp_path)[-1].lower()
             if ext == ".pdf":
-                loader = UnstructuredPDFLoader(temp_path)
+                loader = PyPDFLoader(temp_path)
             elif ext in [".txt", ".csv", ".xlsx", ".jpeg", ".jpg"]:
-                loader = UnstructuredFileLoader(temp_path)
+                loader = UnstructuredLoader(temp_path)
             else:
                 continue
             docs.extend(loader.load())
